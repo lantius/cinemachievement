@@ -23,6 +23,17 @@ get '/signout' do
   redirect "/"
 end
 
+post '/seenfilms' do
+  if session[:user]
+    # Kernel.puts(params['films'])
+    session[:user].seenfilms = params['films']
+    # Kernel.puts(session[:user].to_json)
+    put_response = RestClient.put("#{DB}/#{session[:user].identifier}", session[:user].to_json, :content_type => 'application/json')
+    session[:user].rev = JSON.parse(put_response)['rev']
+    # Kernel.puts(session[:user].rev)
+  end
+end
+
 get '/' do
   # get our movies
   movies = nil
@@ -81,10 +92,11 @@ def authenticate(token)
         # Kernel.puts(db_response.to_str)
         @user = JSON.parse(db_response.to_str)
       else
-        @user = User.new(id, response["profile"]["preferredUsername"], response["profile"]["displayName"], response["profile"]["email"])
+        @user = User.new(id, nil, response["profile"]["preferredUsername"], response["profile"]["displayName"], response["profile"]["email"], nil)
         # Kernel.puts(@user.to_json)
         # Kernel.puts("#{DB}/#{id}")
-        RestClient.put("#{DB}/#{id}", @user.to_json, :content_type => 'application/json')
+        put_response = RestClient.put("#{DB}/#{id}", @user.to_json, :content_type => 'application/json')
+        @user.rev = JSON.parse(put_response)['rev']
       end
     }
     session[:user] = @user

@@ -1,8 +1,8 @@
 function generateRow(json){
-    if(!json['seen']){
-        json['starset'] = 'unset'; 
+    if($.inArray(json['title'], seen_films) > -1){
+      json['starset'] = 'set'; 
     } else {
-        json['starset'] = 'set'; 
+      json['starset'] = 'unset'; 
     }
     json['counttemp'] = [];
     for(var i = 0 ; i < json['oscars']; i++){
@@ -10,8 +10,8 @@ function generateRow(json){
     }
     json['countimgs'] = json['counttemp'].join("\n");
     
-    var img = '<img class="star ${starset}" src="staricon.png" title="I\'ve seen this!">';
-    var markup = "<tr><td>" + img + "</td><td class='movietitle'>${title}</td><td class='count' data-count=${oscars}>{{html countimgs}}</td></tr>";
+    var img = '<img class="star ${starset}" src="staricon.png" title="I\'ve seen ${title}!">';
+    var markup = "<tr><td>" + img + "</td><td class='movietitle'>${title}</td><td class='count' data-count=${oscars} data-title='${title}'>{{html countimgs}}</td></tr>";
     $.template( "movieTemplate", markup);
     return $.tmpl("movieTemplate", json);
 }
@@ -34,12 +34,12 @@ function generateOscars(){
     var oscars = [];
     for(var i = 0; i < len; i++){
         total += movies_data['movies'][i]['oscars'];
-        if(movies_data['movies'][i]['seen']){
+        if($.inArray(movies_data['movies'][i]['title'], seen_films) > -1){
             numSeen += movies_data['movies'][i]['oscars'];
         }
     }
     for(i = 0; i < total; i++){
-        oscars.push('<img class="oscar unset" src="oscar.jpg">');
+        oscars.push('<img class="oscar unset" src="oscar-sm.jpg">');
     }
     var content = oscars.join("\n");
     $('#oscars').html(content);
@@ -64,10 +64,18 @@ $(function() {
           $("tr:has(.set)").hide('slow');
       }
       var total = 0;
+      var films = [];
       $("tr:has(.set) .count").each(function(){
           total += Number($(this).data('count'));
+          films.push($(this).data('title'))
       });
       setOscars(total);
+      $.ajax({
+        type: "POST",
+        url: "/seenfilms",
+        data: {'films' : films },
+      });
+
   });
 
   $("#hidewatch").on('click', function(){

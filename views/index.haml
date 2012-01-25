@@ -34,6 +34,7 @@
         })();
     :javascript
       var movies_data = #{movies};
+      var seen_films = #{current_user.seenfilms.to_json}
       
     %script{:type => "text/javascript", :src  => "jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src  => "jquery.tmpl.min.js"}
