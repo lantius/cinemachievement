@@ -4,7 +4,7 @@ require 'open-uri'
 require 'json'
 require 'rest-client'
 require "sinatra/reloader" if development?
-require '#{File.dirname(__FILE__)}/models/user'
+require "#{File.dirname(__FILE__)}/models/user"
 
 enable :sessions
 
