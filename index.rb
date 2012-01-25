@@ -7,10 +7,11 @@ require "sinatra/reloader" if development?
 require "#{File.dirname(__FILE__)}/models/user"
 
 enable :sessions
+set :protection, :except => [:remote_token, :frame_options] 
 
-post "/signin" do
+post '/signin' do
   authenticate(params[:token])
-  redirect "/"
+  redirect '/'
 end
 
 get '/signout' do
