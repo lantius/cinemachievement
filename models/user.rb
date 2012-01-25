@@ -13,11 +13,15 @@ class User
   end
   
   def to_json(*a)
-    {
+    o = {
       'json_class'   => self.class.name,
-      '_rev'         => @rev,
       'data'         => {'identifier' => @identifier, 'username' => @username, 'name' => @name, 'email' => @email, 'seenfilms' => @seenfilms }
-    }.to_json(*a)
+    }
+    if @rev
+      o['_rev'] = @rev
+    end
+    
+    o.to_json(*a)
   end
  
   def self.json_create(o)

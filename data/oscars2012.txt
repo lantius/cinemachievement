@@ -20,7 +20,8 @@
 {"title": "The Adventures of Tintin", "oscars": 1}, 
 {"title": "Anonymous", "oscars": 1}, 
 {"title": "The Barber of Birmingham", "oscars": 1}, 
-{"title": "Beginners", "oscars": 1}, 
+{"title": "Beginners", "oscars": 1},
+{"title": "A Better Life", "oscars": 1},
 {"title": "Bullhead", "oscars": 1}, 
 {"title": "A Cat in Paris", "oscars": 1}, 
 {"title": "Chico and Rita", "oscars": 1}, 
@@ -57,7 +58,6 @@
 {"title": "The Tsunami and the Cherry Blossom", "oscars": 1}, 
 {"title": "Tuba Atlantic", "oscars": 1}, 
 {"title": "Undefeated", "oscars": 1},
-{"title": "Undefeated", "oscars": 1}, 
 {"title": "W.E.", "oscars": 1}, 
 {"title": "Wild Life", "oscars": 1}, 
 ]}
