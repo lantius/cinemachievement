@@ -71,12 +71,8 @@ tr .count { text-align: right; }
     display: none;
 }
 */
-tr {}
-th {font-size: 24px;}
-
 tr { 
-    font-size: 36px;
-    height: 36px;
+    font-size: 1.5em;
     }
 #oscarcount {
     font-size:64px;
@@ -89,7 +85,7 @@ tr {
 }
 
 #oscar_container .oscar {
-  width: 36px;
+  width: 32px;
 }
 
 #oscar_container {
