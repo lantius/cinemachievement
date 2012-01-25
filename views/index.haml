@@ -1,6 +1,10 @@
 !!! 5
 %html
   %head
+    %link{:rel=>'stylesheet',:href=>'main.css',:type=>'text/css'}
+    %link{:href=>'http://fonts.googleapis.com/css?family=Dynalight', :rel=>'stylesheet', :type=>'text/css'}
+    %link{:href=>'http://fonts.googleapis.com/css?family=Sorts+Mill+Goudy', :rel=>'stylesheet', :type=>'text/css'}
+    
     %title Cinemachievement
     :javascript
       (function() {
@@ -29,14 +33,38 @@
           s.parentNode.insertBefore(e, s);
         })();
     :javascript
-      var movies = #{movies};
+      var movies_data = #{movies};
+      
+    %script{:type => "text/javascript", :src  => "jquery-1.7.1.min.js"}
+    %script{:type => "text/javascript", :src  => "jquery.tmpl.min.js"}
+    %script{:type => "text/javascript", :src  => "movies.js"}
+    
   %body
-    %p
-    - if logged_in? 
-      Hi #{current_user.name}
-      %a{:href=>'/signout'}
-        Sign Out
-    - else 
-      %a.janrainEngage{:href=>"\#" }
-        Sign In
-    %p Hello World!
+    #title
+      Cinemachievement
+    #login
+      - if logged_in? 
+        Hi #{current_user.name} &bull;
+        %a{:href=>'/signout'}
+          Sign Out
+      - else 
+        %a.janrainEngage{:href=>"\#" }
+          Sign In
+
+    %br{:clear=>'all'}
+    #container
+      #category
+        2012 Academy Award Nominees
+      #left_col
+        #oscar_container
+          #oscars
+          #oscarcount
+            120/120
+      #center_col
+        %table#maintable
+    %div{:style=>'height:36px'}
+      %span#hidewatch.button
+        Hide films I've seen
+      %span#showwatch.button{:style=>'display:none'}
+        Show films I've seen
+    

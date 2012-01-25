@@ -7,7 +7,7 @@ require 'rest-client'
 require "sinatra/reloader" if development?
 require "#{File.dirname(__FILE__)}/models/user"
 
-enable :sessions
+enable :sessions, :static
 set :protection, :except => [:remote_token, :frame_options] 
 
 DB = "#{ENV['CLOUDANT_URL']}/cinemachievement"
@@ -31,7 +31,14 @@ get '/' do
     when 200
       movies = db_response.to_str
     else
-      movies = '{}'
+      movies = '{
+        "movies" : [ 
+          {"title": "Test Film #1", "oscars": 7, "seen": false},
+          {"title": "Test Film #2, Electric Boogaloo", "oscars": 7, "seen": false},
+          {"title": "Test Film #3", "oscars": 6, "seen": true},
+          {"title": "Test Film #4", "oscars": 3, "seen": false},
+        ]
+      };'
     end
   }
   haml :index, :locals => { :movies => movies }
@@ -70,12 +77,12 @@ def authenticate(token)
     RestClient.get("#{DB}/#{id}"){|db_response, db_request, db_result|  
       case db_response.code
       when 200
-        Kernel.puts(db_response.to_str)
+        # Kernel.puts(db_response.to_str)
         @user = JSON.parse(db_response.to_str)
       else
         @user = User.new(id, response["profile"]["preferredUsername"], response["profile"]["displayName"], response["profile"]["email"])
-        Kernel.puts(@user.to_json)
-        Kernel.puts("#{DB}/#{id}")
+        # Kernel.puts(@user.to_json)
+        # Kernel.puts("#{DB}/#{id}")
         RestClient.put("#{DB}/#{id}", @user.to_json, :content_type => 'application/json')
       end
     }
