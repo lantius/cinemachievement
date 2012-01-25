@@ -45,10 +45,10 @@ get '/' do
     else
       movies = '{
         "movies" : [ 
-          {"title": "Test Film #1", "oscars": 7, "seen": false},
-          {"title": "Test Film #2, Electric Boogaloo", "oscars": 7, "seen": false},
-          {"title": "Test Film #3", "oscars": 6, "seen": true},
-          {"title": "Test Film #4", "oscars": 3, "seen": false},
+          {"title": "Test Film #1", "oscars": 7},
+          {"title": "Test Film #2, Electric Boogaloo", "oscars": 7},
+          {"title": "Test Film #3", "oscars": 6},
+          {"title": "Test Film #4", "oscars": 3},
         ]
       };'
     end
