@@ -29,7 +29,7 @@ get '/' do
   RestClient.get("#{MOVIE_DB}/oscars"){|db_response, db_request, db_result|  
     case db_response.code
     when 200
-      movies = db_response.to_str
+      movies = db_response[:data].to_str
     else
       movies = '{
         "movies" : [ 
