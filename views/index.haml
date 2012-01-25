@@ -34,7 +34,12 @@
         })();
     :javascript
       var movies_data = #{movies};
-      var seen_films = #{current_user.seenfilms.to_json}
+    - if logged_in?
+      :javascript
+        var seen_films = #{current_user.seenfilms.to_json};
+    - else
+      :javascript
+        var seen_films = [];
       
     %script{:type => "text/javascript", :src  => "jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src  => "jquery.tmpl.min.js"}
