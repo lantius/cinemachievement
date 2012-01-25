@@ -9,11 +9,8 @@ require "#{File.dirname(__FILE__)}/models/user"
 enable :sessions
 
 post "/signin" do
-  if authenticate(params[:token])
-    redirect "/"
-  else
-    redirect "/signin"
-  end
+  authenticate(params[:token])
+  redirect "/"
 end
 
 get '/signout' do
