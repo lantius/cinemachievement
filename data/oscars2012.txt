@@ -28,7 +28,6 @@
 {"title": "Dimanche", "oscars": 1}, 
 {"title": "Drive", "oscars": 1}, 
 {"title": "The Fantastic Flying Books of Mr. Morris Lessmore", "oscars": 1}, 
-{"title": "Farragut North", "oscars": 1},
 {"title": "Footnote", "oscars": 1}, 
 {"title": "God Is the Bigger Elvis", "oscars": 1},
 {"title": "Hell and Back Again", "oscars": 1}, 
@@ -58,6 +57,7 @@
 {"title": "The Tsunami and the Cherry Blossom", "oscars": 1}, 
 {"title": "Tuba Atlantic", "oscars": 1}, 
 {"title": "Undefeated", "oscars": 1},
+{"title": "Warrior", "oscars": 1},
 {"title": "W.E.", "oscars": 1}, 
 {"title": "Wild Life", "oscars": 1}, 
 ]}
