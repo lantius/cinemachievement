@@ -33,13 +33,9 @@
           s.parentNode.insertBefore(e, s);
         })();
     :javascript
+      var database_id = '#{database_id}';
       var movies_data = #{movies};
-    - if logged_in?
-      :javascript
-        var seen_films = #{current_user.seenfilms.to_json};
-    - else
-      :javascript
-        var seen_films = [];
+      var seen_films = #{seen_films};
       
     %script{:type => "text/javascript", :src  => "jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src  => "jquery.tmpl.min.js"}
@@ -67,11 +63,19 @@
       - else 
         %a.janrainEngage{:href=>"\#" }
           Sign In
+      &bull;
+      
+      - if database_id == 'oscars2013'
+        %a{:href=>'/2012oscars'}
+          2012
+      - else
+        %a{:href=>'/'}
+          2013
 
     %br{:clear=>'all'}
     #container
       #category
-        2013 Academy Award Nominees
+        Academy Award Nominees
       #left_col
         #oscar_container
           #oscars

@@ -17,6 +17,8 @@ function generateRow(json){
 }
 
 function generateTable(){
+    $('#category').html(movies_data['database']);
+    
     //assume sorted order
     var len = movies_data['movies'].length;
     rows = [];
@@ -73,7 +75,9 @@ $(function() {
       $.ajax({
         type: "POST",
         url: "/seenfilms",
-        data: {'films' : films },
+        data: {
+          'database': database_id,
+          'films' : films },
       });
 
   });
@@ -94,9 +98,6 @@ $(function() {
 });
 
 var hidewatch = false;
-// $(".unsetstar").bind('click', function(){
-//     $(this).class('opacity', 1.0)
-// });
 
 function setOscars(count) {
     var set = 0;

@@ -33,7 +33,13 @@ end
 post '/seenfilms' do
   if session[:user]
     # Kernel.puts(params['films'])
-    session[:user].seenfilms = params['films']
+    if (!session[:user].seenfilms.kind_of? Hash)
+      session[:user].seenfilms = Hash.new()
+    end
+    
+    session[:user].seenfilms[params['database']] = params['films']
+    
+    #session[:user].seenfilms = params['films']
     # Kernel.puts(session[:user].to_json)
     put_response = RestClient.put("#{DB}/#{session[:user].identifier}", session[:user].to_json, :content_type => 'application/json')
     session[:user].rev = JSON.parse(put_response)['rev']
@@ -41,10 +47,12 @@ post '/seenfilms' do
   end
 end
 
-get '/' do
+get '/?:database?' do
   # get our movies
   movies = nil
-  RestClient.get("#{MOVIE_DB}/oscars2013"){|db_response, db_request, db_result|  
+  
+  database = params[:database] ? params[:database] : "2013oscars"
+  RestClient.get("#{MOVIE_DB}/#{database}"){|db_response, db_request, db_result|  
     case db_response.code
     when 200
       movie_object = JSON.parse(db_response)
@@ -60,7 +68,12 @@ get '/' do
       };'
     end
   }
-  haml :index, :locals => { :movies => movies }
+  seen_films = []
+  if session[:user] and session[:user].seenfilms.kind_of? Hash
+    seen_films = session[:user].seenfilms[database]
+  end
+  
+  haml :index, :locals => { :movies => movies, :database_id => database, :seen_films => seen_films.to_json }
 end
 
 def authenticate(token)
