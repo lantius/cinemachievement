@@ -44,7 +44,7 @@ end
 get '/' do
   # get our movies
   movies = nil
-  RestClient.get("#{MOVIE_DB}/oscars"){|db_response, db_request, db_result|  
+  RestClient.get("#{MOVIE_DB}/oscars2013"){|db_response, db_request, db_result|  
     case db_response.code
     when 200
       movie_object = JSON.parse(db_response)
