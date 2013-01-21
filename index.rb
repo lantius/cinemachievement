@@ -12,7 +12,7 @@ set :protection, :except => [:remote_token, :frame_options]
 
 # For debugging: make sure CouchBase server is running.  Default port is 5984.
 # Then export CLOUDANT_URL='http://localhost:5984'
-if !("#{ENV['CLOUDANT_URL']}".match('^http://'))
+if !("#{ENV['CLOUDANT_URL']}".match('^https://'))
   Kernel.puts('Environment variable "CLOUDANT_URL" must be set in development mode (probably http://localhost:5984).')
   exit()
 end
